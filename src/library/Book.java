@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author desarrollador
+ * @author Daniel M Sanchez
  */
 public class Book extends Conection{
     

@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author desarrollador
+ * @author Daniel M. Sanchez
  */
 public class home extends javax.swing.JFrame {
 
@@ -92,6 +92,12 @@ public class home extends javax.swing.JFrame {
         jLabel3.setText("Id");
 
         jLabel4.setText("New Name");
+
+        txt_update_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_update_nameKeyPressed(evt);
+            }
+        });
 
         btn_update.setText("Update");
         btn_update.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +274,6 @@ public class home extends javax.swing.JFrame {
             if(i == 0){
                 id_book = Integer.parseInt(list_books.getValueAt(row, 0).toString());
                 if(book.delete(id_book) > 0){
-                    JOptionPane.showMessageDialog(this, "the book was deleted succesful!","Delete Book",JOptionPane.INFORMATION_MESSAGE);
                     remove_items();
                     list_books();
                 }else{
@@ -281,23 +286,7 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_item_deleteActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
-        id_book = Integer.parseInt(txt_id_update.getText());
-        name_book = txt_update_name.getText();
-        
-        if(!last_name.equals(name_book)){
-            int res = book.update(id_book, name_book);
-
-            if(res > 0){
-                JOptionPane.showMessageDialog(this, "the book was updated succesful!","Update Book",JOptionPane.INFORMATION_MESSAGE);
-                update_dialog.setVisible(false);
-                remove_items();
-                list_books();
-            }else{
-                JOptionPane.showMessageDialog(this, "the book can't Updated!","Update Book",JOptionPane.INFORMATION_MESSAGE);
-            }
-        }else{
-            update_dialog.setVisible(false);
-        }
+        update_book();
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
@@ -313,6 +302,11 @@ public class home extends javax.swing.JFrame {
         if(evt.getKeyCode() == 10)
             new_book();
     }//GEN-LAST:event_txt_idKeyPressed
+
+    private void txt_update_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_update_nameKeyPressed
+        if(evt.getKeyCode() == 10)
+            update_book();
+    }//GEN-LAST:event_txt_update_nameKeyPressed
 
     /**
      * @param args the command line arguments
@@ -415,6 +409,25 @@ public class home extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Book can't added succesfull", "Add New Book", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void update_book() {
+        id_book = Integer.parseInt(txt_id_update.getText());
+        name_book = txt_update_name.getText();
+        
+        if(!last_name.equals(name_book)){
+            int res = book.update(id_book, name_book);
+
+            if(res > 0){
+                update_dialog.setVisible(false);
+                remove_items();
+                list_books();
+            }else{
+                JOptionPane.showMessageDialog(this, "the book can't Updated!","Update Book",JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else{
+            update_dialog.setVisible(false);
         }
     }
 }
