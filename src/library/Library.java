@@ -63,10 +63,10 @@ public class Library {
                         String[] books = book.all();
                         
                         System.out.println("\n\t\tBOOKS LIST");
-                        
+                        System.out.println("--------------------------------------");
                         for (String book_ : books)
                             System.out.println(book_);
-                        
+                        System.out.println("--------------------------------------");
                         System.out.println("\n");
                         
                         break;

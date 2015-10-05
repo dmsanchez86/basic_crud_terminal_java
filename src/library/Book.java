@@ -5,6 +5,7 @@
  */
 package library;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -48,14 +49,13 @@ public class Book extends Conection{
             int count = 0;
             
             while(this.data.next()){
-                books[count] = "ID: " + this.data.getInt("id") + " Name: "+ this.data.getString("name");
+                books[count] = "| ID: \t" + this.data.getInt("id") + "\t| Name:  "+ this.data.getString("name");
                 data[count] = books[count];
                 count++;
-            }  
+            }
             
             this.desconectar();
         } catch (SQLException e) {
-            System.out.println("----");
             System.out.println(e);
             return null;
         }
@@ -72,6 +72,8 @@ public class Book extends Conection{
             while(this.data.next()){
                 num_reg = Integer.parseInt(this.data.getString(1));
             }
+            
+            this.num_registers = num_reg;
         } catch (SQLException e) {
             return 0;
         }
@@ -110,6 +112,17 @@ public class Book extends Conection{
     
     public String[] data(){
         return this.data_book;
+    }
+    
+    public ResultSet data_books(){        
+        try {
+            this.conectar();
+            this.query = this.conection.prepareStatement("SELECT * FROM book");
+            this.data = this.query.executeQuery();
+            return this.data;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public int update(int id_book, String name_book) {

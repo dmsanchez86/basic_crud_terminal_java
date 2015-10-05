@@ -21,6 +21,7 @@ public class Conection {
     public ResultSet data = null;
     public PreparedStatement query = null;
     public String[] data_book;
+    public int num_registers = 0;
     
     public boolean conectar(){
         try {
